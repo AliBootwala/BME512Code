@@ -1,0 +1,42 @@
+<p>
+	Lab Report #1</p>
+
+<p>	Ali H. Bootwala</p>
+
+<p>
+	9/13/2013</p>
+
+<h2>
+	Determination of Stimulus Thresholds of Randomly Selected Cells on a simulated sheet of cardiac cells</h2>
+
+<h3>
+	Abstract</h3>
+
+<p>
+	This experiment was conducted in order to gain familiarity with the cardiac cell sheet simulation program and determine the stimulation threshold of four randomly selected cells in the sheet. Two of the cells were chosen from the top of the sheet and two were chosen from the bottom of the sheet. The cells were stimulated repeatedly until the threshold amperage necessary to illicit a cardiac action potential was determined. The threshold stimuli amperage was recorded meticulously at two different stimulation duration for each cell. This resulted in an accumulation of 8 data points that were then submitted to statistical measures in order to determine the similarity of stimulation threshold between the top cells and bottom cells, and between stimulation duration. The statistical metric used was a classical Standard Maximum Likelihood test to determine the similarity of the average stimulation thresholds between the sets.</p>
+
+<h3>
+	Introduction</h3>
+
+<p>
+	The heart is an incredibly complex and important organ. Its structure consists of different chambers that house some of the strongest muscles in the human body and some of the most complex electrical circuitry known to man. To begin to understand the heart, its chambers, tissues, and functions, one must begin with a study of the individual cells that power the organ that ticks along and symbolizes life. The cardiac cell is an interesting structure in itself and is equipped with the ability to undergo drastic changes in ion concentration that result in electrical action potentials that run from cell to cell and illicit the heart beat. The beginning of this electrical understanding comes from an understanding of the stimulation thresholds at which these cells react. In this experiment data on the stimulation thresholds of four cardiac cells randomly selected from a sheet of 1600 cells was analyzed statistically in order to ascertain the answers to two specific questions on the specific cell sheet simulation in question.</p>
+<ol>
+	<li>
+		Was the stimulation threshold of the top cells the same as the stimulation threshold of the bottom cells?
+		<ul>
+			<li>
+				Determined via a Standard ML Hypothesis Test of size, alpha = 0.05</li>
+			<li>
+				Displayed graphically via a two parameter students T-test.</li>
+		</ul>
+	</li>
+	<li>
+		Was the stimulation threshold of the cells the same between different stimulation duration?
+		<ul>
+			<li>
+				Determined and displayed in the same way as listed above</li>
+		</ul>
+	</li>
+</ol>
+<p>
+	These were the questions that drove this report.</p>
