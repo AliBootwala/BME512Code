@@ -1,0 +1,331 @@
+%---------------------------------------------------------------------------------------> PREAMBLE
+%------------------------------------------------
+% Declaration
+%------------------------------------------------
+\documentclass[10pt, titlepage]{article} 
+%------------------------------------------------
+% Macros
+%------------------------------------------------
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{url}								% Usage:  \url{ }
+\usepackage{lipsum}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{topcapt}
+\usepackage{chngpage}
+\usepackage{pdfpages}
+\usepackage[top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}  %Adjust the margins if you want to
+\usepackage[T1]{fontenc}							% For better output
+\usepackage[scaled]{beramono}					% Font used by Listings env. and \tt{ } 
+%\usepackage[scaled]{inconsolata}					
+\usepackage{lscape}
+\usepackage{color}								% Called by Listings env
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{makeidx}
+
+%------------------------------------------------
+% Other settings
+%------------------------------------------------
+\definecolor{dkgreen}{rgb}{0,0.6,0}					% Color definitions; used with Listings env 
+\definecolor{gray}{rgb}{0.5,0.5,0.5}					% 	and MATLAB code
+\setlength{\jot}{10pt}								% Equation line spacing
+ \renewcommand{\thetable}{\Roman{table}} 			% Table numbering modification
+										% 	(ARABIC ---> ROMAN)
+%------------------------------------------------
+% Titlematter
+%------------------------------------------------
+
+\title{Lab Report 2: Voltage Map and Intracellular Current }
+\author{
+\normalsize Ali Bootwala  \\
+\normalsize Laboratory No. 2 \\
+\normalsize BME 512--01\\~\\
+\normalsize Submitted 9/27/2013 \\
+\normalsize Professor: Roger Barr  
+}
+
+
+
+%---------------------------------------------------------------------------------------> DOCUMENT
+%------------------------------------------------
+% Instantiation and Set-up
+%------------------------------------------------
+
+% Document instantiation
+\begin{document}
+
+% Listings
+\lstset{language=Matlab,										
+   keywords={break,case,catch,continue,else,elseif,end,for,function,
+      global,if,otherwise,persistent,return,switch,try,while},
+   basicstyle=\ttfamily,
+   keywordstyle=\color{red},
+   commentstyle=\color{dkgreen},
+   stringstyle=\color{blue},
+   numbers=left,
+   numberstyle=\tiny\color{gray},
+   stepnumber=1,
+   numbersep=10pt,
+   backgroundcolor=\color{white},
+   tabsize=4,
+   showspaces=false,
+   frame=single,
+   showstringspaces=false}
+   
+% Cover page
+\maketitle
+\newpage
+
+% Table of Contents
+\pagestyle{plain}
+\tableofcontents 
+\vspace{1cm}
+\listoffigures
+\vspace{1cm}
+\listoftables
+\newpage
+%------------------------------------------------
+% Mainmatter
+%------------------------------------------------
+% Header:
+\pagestyle{fancyplain}
+\lhead{Laboratory No. 2}
+\chead{Intracellular Currents}
+\rhead{Ali Bootwala}
+
+
+\section{Introduction}
+In order to better understand the electrical activity in a sheet of active cardiac cells the sheet of cells were stimulated by a short stimulus of a preset duration at two corners of the sheet. The stimulus was large enough to ellicit an action potential which resulted in a travelling voltage potential wave throughout the cell sheet. Taken at individual times the response of the cell sheet can be taken and analyzed for both voltage potential at each cell for a given time, and also for the intracellular currents that are present at a given time. The voltage is depicted as a scalar field with a value at each cell and the intracellular currents are represented by vector fields that overlay to provide a picture of the currents entering and exiting each cell from the cell directly to its right, left, above, and below. The time for which I analyzed this cell sheet response was at time 2.0 milliseconds after the start of the stimulation. The ultimate question is what does the intracellular current look like at time 2.0 msec post stimulation for the sheet of cells and how does it look in correlation to the voltage map of the cells at the same time. In addition we gain some insight into how the voltage front progresses through the cell sheet from cell to cell and what future time points might look like.
+
+\section{Methods}
+\subsection{Creating the Voltage Map}
+The simulation program generated a list of voltages that corresponded to each cell at the time 2.0msec post stimulation. This list of voltages was then saved and loaded into MATLAB to begin manipulations and graphing. After ensuring that the voltages were taken from the correct time and the stimulation settings were properly calibrated this list was vectorized in matlab and then systematically input into a matrix of the right size. This matrix was then a representation of the voltages of the cell sheet at time 2.0msec. Each element of the matrix corresponded to a cell on the sheet of cells in the simulation program. The code used to iteratively place the elements of the vector into the correct elements of the matrix is in Appendix A. In summation the code utilized an iterative {\tt for loop} to take each element from the cell voltage vector, and then used a modulus function and an {\tt if else} structure in order to properly place each number into the proper element of the 30x40 matrix. This nested if tree in the for loop made sure that each iteration was placing the correct element into the correct row and column of the matrix $\in \mathcal{M}_{30x40}$. The Voltage map is plotted in Figure 1.
+
+\subsection{Creating the Intracellular Current Map}
+Once the voltage map was created a simple set of mathematics lead to the creation of intracellular current maps. These intracellular current maps were generated by taking the differnce of voltage between cells and dividing them by the effective resistance between them. The Current maps were created for each cell, except for boundary condition issues, for currents coming from the cell above, from the cell below, from the cell to the left, and from the cell to the right. These current maps were then overlaid on a single plot. The resulting graph was a depiction of the intra cellular current pressent in each cell at the time 2.0 msec after stimulation. The mathematics used is shown in equations (1) through (5). In addition the calculations were scaled by a factor of 3 to give results in nanoAmperes. Finally, the plots of the intracellular current depict only the components of current from the up and left directions because these both display an accurate depiction of what the intracellular currents would be without showing the sign reciprocal nature of the right and down components of the Intracellular current map. The overlay of all four matrices looked messy therefore the decision was made to only overlay the $I_{Up}$ and $I_{Left}$ components over the voltage map. The current map is depicted in Figure 3 as well as a zoomed in depiction of the cells near the stimulation sites in Figure 4.
+
+\subsubsection{Ohms Law relationship and Intracellular current equations}
+\begin{align}
+I &= \frac{\Delta V}{R}\\
+I_{Down} &= \frac{V_{i+1,j}(\mbox{mV}) - V{i,j}(\mbox{mV)}}{2000 (k \Omega)}\times \frac{10^3 (\mbox{nA})}{1 (\mu\mbox{A})}\\
+I_{Left} &= \frac{V_{i,j+1}(\mbox{mV}) - V{i,j}(\mbox{mV)}}{4000 (k \Omega)}\times \frac{10^3 (\mbox{nA})}{1 (\mu\mbox{A})}\\
+I_{Up} &= \frac{V_{i,j}(\mbox{mV}) - V{i+1,j}(\mbox{mV)}}{2000 (k \Omega)}\times \frac{10^3 (\mbox{nA})}{1 (\mu\mbox{A})}\\
+I_{Right} &= \frac{V_{i,j}(\mbox{mV}) - V{i,j+i}(\mbox{mV)}}{4000 (k \Omega)}\times \frac{10^3 (\mbox{nA})}{1 (\mu\mbox{A})}
+\end{align}
+
+\section{Results}
+The Figures generated in the lab report are listed below.
+\subsection{Voltage Map}
+\begin{figure}[htbp!]
+\begin{center}
+\includegraphics[width = 14cm, height = 10cm]{Vmaptime2ms}
+\caption{Voltage Map of the Cell Sheet at 2.0 msec after stimulation}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp!]
+\begin{center}
+\includegraphics[width = 10cm, height = 6cm]{Cell0Volt}
+\caption[Voltage vs. Time for Cell 0]{Voltage vs. Time for Stimulated Cell 0 and a time marker depicting the time point at which the Voltage Map Values were taken during the simulation.}
+\end{center}
+\end{figure}
+
+\subsection{Current Map for Intracellular Current}
+\begin{figure}[htbp!]
+\begin{center}
+\includegraphics[width = 16cm, height = 10cm]{CellSheetIntraCurr}
+\caption[Current Map of the Cell Sheet at 2.0 msec post-stimulation]{Current Map of the Cell Sheet at 2.0 msec after stimulation overlaid on the contour map of the voltage at each cell, for the sake of visual clarity only the Upward and Leftward components of the intracellular currents were included.}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp!]
+\begin{center}
+\includegraphics[width = 16cm, height = 8cm]{ZoomIntraCurr}
+\caption[Zoomed in Intracellular Current Map]{Image of the Current Map zoomed in on interesting regions near the points of stimulation at the temporal heads of the wave fronts.}
+\end{center}
+\end{figure}
+
+\section{Discussion}
+These results show the resulting intracellular currents that arise from a suprathreshold stimulation of the corners of the sheet of cells. The response of the cells at the time point at 2.0msec after the start of the stimulation is shown both in terms of cellular voltage levels as risen from their resting potential as well as giving insight into the strength of currents that are present in the cells. The currents are strongest in the directions of high potential to low potential which prompts thought into the strength of the ion channel activation between cells. The currents being representations of the forces present within and between cells on the ions that flow in order to create the biological currents between the cells.\\
+
+The final insight that the current plots give is a small insight into how the voltage map of the sheet of cells will change over time. At the plotted time point (t = 2.0 msec) we see the current pushing towards areas of low potential and this gives clues into how the cells current is flowing into will react as well as how high the potential will jump in these other cells as a result of current strength. Overall the displayed graphs show one snapshot into the voltage and intracellular current response of a sheet of cardiac cells as they are stimulated enough to ellicit an action potential.
+
+%------------------------------------------------
+% Appendices
+%------------------------------------------------
+
+\newpage
+\appendix
+
+% Appendix A
+
+\section{MATLAB Code}
+This is the script file in which I performed all of the calculations, graphing, and fitting for this lab report.
+\vspace{0.5cm}
+\small{
+\begin{lstlisting}[caption={\tt Bootwala\_Report2\_maker.m}]
+% BME512Lab2 
+% Ali H. Bootwala
+% 27 Sept 2013
+% I have adhered to all the tenets of the 
+% Duke Community Standard in creating this code.
+% Signed: ahb15
+
+%% initialize Workspace
+clear;clc
+%% load variables
+load('Vmap_tr1_t2000ms.txt');
+cells = Vmap_tr1_t2000ms(:,1);
+Vm = Vmap_tr1_t2000ms(:,2);
+load('cell0_40nA.txt')
+time = cell0_40nA(:,1);
+Volt = cell0_40nA(:,4);
+
+%% formatting matrix
+Vmap = zeros(30,40);
+r = 0;
+for n = 1:1200
+    c = mod(cells(n),40)+1;
+    if c == 1
+        r = r+1;
+    end
+    Vmap(r,c) = Vm(n);
+end
+
+x = 0:39;
+y = 0:29;
+%%
+figure(1);clf
+[C,h] = contourf(x,y,Vmap);
+xlabel('horizontal cells')
+ylabel('vertical cells')
+title('Voltage map at time 2.0 msec')
+clabel(C, h, 0:-40:-80, 'Color', 'w', 'LabelSpacing', 48,...
+        'Rotation', 0)
+colorbar
+text(5,25,...
+        {'Ali H. Bootwala';'Map taken at time t = 2.0msec'},...
+        'HorizontalAlignment', 'left',...
+        'BackgroundColor', [1,1,1],...
+        'FontSize', 10)
+print -djpeg Vmaptime2ms
+
+%%
+xl = 2.*ones(1,100);
+yl = linspace(-100, 40,100);
+figure(2);clf
+plot(time, Volt, 'b', 'LineWidth', 2)
+hold on
+plot(xl,yl, 'r', 'LineWidth', 1.5)
+grid on
+xlabel('Time (msec)')
+ylabel('V_m (mV)')
+title('Cell 0 Membrane Voltage after 40nA stim for 0.4msec duration')
+text(2.1, -35, '\leftarrow Map taken at t = 2msec',...
+        'HorizontalAlignment', 'left',...
+        'BackgroundColor', [0.3, 0.6, 0.7],...
+        'FontSize', 10)
+print -djpeg Cell0Volt
+%% Finding and plotting Intracellular cuurent
+I_D = -(diff(Vmap)./4000).*10^3; %nA
+u_d = zeros(size(I_D));
+[xd, yd] = meshgrid(0:39, 1:29);
+I_L = -(diff(Vmap,1,2)./2000).*10^3; %nA
+v_l = zeros(size(I_L));
+[xl, yl] = meshgrid(0:38, 0:29);
+%%
+r = 30;
+Vmapflip = zeros(size(Vmap));
+for row = 1:30
+    Vmapflip(row,:) = Vmap(r,:);
+    r = r-1;
+end
+I_U = -(diff(Vmapflip)./4000).*10^3; %nA
+u_u = zeros(size(I_U));
+[xu, yu] = meshgrid(39:-1:0, 28:-1:0);
+I_R = -(diff(Vmapflip,1,2)./2000).*10^3; %nA
+v_r = zeros(size(I_R));
+[xr, yr] = meshgrid(39:-1:1, 29:-1:0);
+%%
+figure(3);clf
+[C1, h1] = contourf(x,y,Vmap); hold on
+quiver(xd, yd, u_d, I_D,'w');
+quiver(xl, yl, I_L, v_l, 'w')
+%quiver(xu, yu, u_u, I_U, 'g')
+%quiver(xr, yr, I_R, v_r, 'k')
+axis([0 39 0 29])
+xlabel('Horizontal Cells'); ylabel('Vertical Cells')
+title('Intracellular Current at Time 2.0msec')
+print -djpeg CellSheetIntraCurr
+%%
+figure(4);clf
+subplot(1,2,1)
+[C2, h2] = contourf(x,y,Vmap); hold on
+quiver(xd, yd, u_d, I_D,'w');
+quiver(xl, yl, I_L, v_l, 'w')
+axis([0 7 0 6])
+xlabel('Horizontal Cells'); ylabel('Vertical Cells')
+title('Current near Left Stimulation Cell')
+subplot(1,2,2)
+[C3, h3] = contourf(x,y,Vmap); hold on
+quiver(xd, yd, u_d, I_D,'w');
+quiver(xl, yl, I_L, v_l, 'w')
+axis([32 39 0 5.5])
+xlabel('Horizontal Cells'); ylabel('Vertical Cells')
+title('Current near Right Stimulation Cell')
+print -djpeg ZoomIntraCurr .
+\end{lstlisting}
+}
+\vspace{0.5cm}
+%------------------------------------------------
+% End
+%------------------------------------------------
+
+\end{document}
+
+
+%---------------------------------------------------------------------------------------> TEMPLATES
+%------------------------------------------------
+% Figure
+%------------------------------------------------
+
+%\begin{figure}[htbp!]
+%\begin{center}
+%\includegraphics[width = 10cm, height = 8cm]{Picturename}
+%\caption{Caption Caption Caption}
+%\end{center}
+%\end{figure}
+
+
+%------------------------------------------------
+% Table
+%------------------------------------------------
+
+%\begin{table}[htbp!]
+%\begin{center}
+%\topcaption{Relationship between $R_t$ and $V_{out}$}
+%\begin{tabular}{c c}
+%Resistance, $R_t$ ($\Omega$) & Bridge output, $V_{out}$ (V) \\ \midrule
+%100 & 1.935 $\pm$ 0.0048 \\
+%470 & 1.192 $\pm$ 0.0036 \\
+%1000 (balancing) & 0.323 $\pm$ 0.0068 \\ 
+%1500 & -0.340 $\pm$ 0.0069 \\
+%10000 & -4.315 $\pm$ 0.0107 \\
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+
+%------------------------------------------------
+% Listing
+%------------------------------------------------
+
+%\begin{lstlisting}
+%function y = demo(x) % This is a comment.
+%   str = 'hello there';
+%   y = x + 1;
+%end
+%\end{lstlisting}

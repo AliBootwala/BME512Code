@@ -1,0 +1,163 @@
+%---------------------------------------------------------------------------------------> PREAMBLE
+%------------------------------------------------
+% Declaration
+%------------------------------------------------
+\documentclass[10pt, titlepage]{article} 
+%------------------------------------------------
+% Macros
+%------------------------------------------------
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{url}								% Usage:  \url{ }
+\usepackage{lipsum}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{topcapt}
+\usepackage{chngpage}
+\usepackage{pdfpages}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}  %Adjust the margins if you want to
+\usepackage[T1]{fontenc}							% For better output
+\usepackage[scaled]{beramono}					% Font used by Listings env. and \tt{ } 
+%\usepackage[scaled]{inconsolata}					
+\usepackage{lscape}
+\usepackage{color}								% Called by Listings env
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{makeidx}
+
+%------------------------------------------------
+% Other settings
+%------------------------------------------------
+\definecolor{dkgreen}{rgb}{0,0.6,0}					% Color definitions; used with Listings env 
+\definecolor{gray}{rgb}{0.5,0.5,0.5}					% 	and MATLAB code
+\setlength{\jot}{10pt}								% Equation line spacing
+ \renewcommand{\thetable}{\Roman{table}} 			% Table numbering modification
+										% 	(ARABIC ---> ROMAN)
+%------------------------------------------------
+% Titlematter
+%------------------------------------------------
+
+
+
+
+%---------------------------------------------------------------------------------------> DOCUMENT
+%------------------------------------------------
+% Instantiation and Set-up
+%------------------------------------------------
+
+% Document instantiation
+\begin{document}
+
+% Listings
+\lstset{language=Matlab,										
+   keywords={break,case,catch,continue,else,elseif,end,for,function,
+      global,if,otherwise,persistent,return,switch,try,while},
+   basicstyle=\ttfamily,
+   keywordstyle=\color{red},
+   commentstyle=\color{dkgreen},
+   stringstyle=\color{blue},
+   numbers=left,
+   numberstyle=\tiny\color{gray},
+   stepnumber=1,
+   numbersep=10pt,
+   backgroundcolor=\color{white},
+   tabsize=4,
+   showspaces=false,
+   frame=single,
+   showstringspaces=false}
+   
+
+
+%------------------------------------------------
+% Mainmatter
+%------------------------------------------------
+% Header:
+\pagestyle{fancyplain}
+\fancyhf{}
+\lhead{Laboratory No. 2}
+\chead{Figures for Lab report 2}
+\rhead{Bootwala}
+\large{Voltage Map of the cell sheet taken at Time, 2msec}
+\begin{figure}[htbp!]
+\begin{center}
+\includegraphics[width = 18cm, height = 14cm]{Vmaptime2ms}
+\end{center}
+\end{figure}
+
+\large{Cell 0 Voltage Response and Map Time Marker}
+\begin{figure}[htbp!]
+\begin{center}
+\includegraphics[width = 14cm, height = 6cm]{Cell0Volt}
+\end{center}
+\end{figure}
+
+\newpage
+\large{Intracellular Current of the cell sheet at Time, 2msec
+\begin{figure}[htbp!]
+\begin{center}
+\includegraphics[width = 18cm, height = 14cm]{CellSheetIntraCurr}
+\end{center}
+\end{figure}
+
+\large{Zoom in on Intracellular Current of cell sheet near points of Stimulation}
+\begin{figure}[htbp!]
+\begin{center}
+\includegraphics[width = 14cm, height = 6cm]{ZoomIntraCurr}
+\end{center}
+\end{figure}
+
+%------------------------------------------------
+% Appendices
+%------------------------------------------------
+
+
+
+%------------------------------------------------
+% End
+%------------------------------------------------
+
+\end{document}
+
+
+%---------------------------------------------------------------------------------------> TEMPLATES
+%------------------------------------------------
+% Figure
+%------------------------------------------------
+
+%\begin{figure}[htbp!]
+%\begin{center}
+%\includegraphics[width = 10cm, height = 8cm]{Picturename}
+%\caption{Caption Caption Caption}
+%\end{center}
+%\end{figure}
+
+
+%------------------------------------------------
+% Table
+%------------------------------------------------
+
+%\begin{table}[htbp!]
+%\begin{center}
+%\topcaption{Relationship between $R_t$ and $V_{out}$}
+%\begin{tabular}{c c}
+%Resistance, $R_t$ ($\Omega$) & Bridge output, $V_{out}$ (V) \\ \midrule
+%100 & 1.935 $\pm$ 0.0048 \\
+%470 & 1.192 $\pm$ 0.0036 \\
+%1000 (balancing) & 0.323 $\pm$ 0.0068 \\ 
+%1500 & -0.340 $\pm$ 0.0069 \\
+%10000 & -4.315 $\pm$ 0.0107 \\
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+
+%------------------------------------------------
+% Listing
+%------------------------------------------------
+
+%\begin{lstlisting}
+%function y = demo(x) % This is a comment.
+%   str = 'hello there';
+%   y = x + 1;
+%end
+%\end{lstlisting}
